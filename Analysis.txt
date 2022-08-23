@@ -1,0 +1,106 @@
+Sort 1=>
+#include <stdio.h>
+#include <stdlib.h>
+void selectionSort(int a[], int n)
+{
+    int min , temp;                      2
+    for (int i = 0; i < n - 1; i++)      1 + N + N - 1 = 2N
+    {
+        min = i;                         N-1
+        for (int j = i + 1; j < n; j++)  N-1 + N(N-1)/2 + 1 + N(N-1)/2 = N+N(N-1)
+        {
+            if (a[j] <= a[min])          3N(N-1)/2
+            {
+                min = j;                 N(N-1)/2
+            }
+        }
+        temp = a[min];                   2(N-1)
+        a[min] = a[i];                   2(N-1)
+        a[i] = temp;                     2(N-1)
+    }
+}
+
+void file(int n, char name[])
+{
+    int a[100000];                    1
+    FILE *file = fopen(name, "r");    1
+    for (int i = 0; i < n; i++)       1+(N+1)+N = 2N+2
+    {
+        fscanf(file, "%d", &a[i]);    N
+    }
+    insertionSort(a, n);	      1	
+    fclose(file);                     1
+}
+
+int main()
+{
+    int number;                      1
+    char name[10];                   1
+    scanf("%[^\n]%*c",name);         1
+    scanf("%d", &number);            1
+    file(number,name);               1
+}
+
+Time Complexity for Sort 1 comes to be: f(n) = 3 N^2 + 10 N + 6
+For Big O:
+we find g(n) such that c*g(n)>=f(n)
+20n^2 >= f(n)
+c = 20 and g(n) = n^2
+therefore: sort 2 has time complexity as O(n^2) and omega(n^2)
+
+------------------------------------------------------------------------------------
+
+Sort 2 =>
+#include <stdio.h>
+#include <stdlib.h>
+void insertionSort(int a[], int n)
+{
+    int j,key;                        2
+    for (int i = 1; i < n; i++)       1+(N)+(N-1) = 2N
+    {
+        key = a[i];                   2(N-1) = 2N-2
+        j = i - 1;                    (N-1)
+        while (j >= 0 && a[j] > key)  N(N-1)/2 + 1 + 2N(N-1)/2 = 3N(N-1)/2 + 1
+        {
+            a[j + 1] = a[j];	      3N(N-1)/2	
+            j = j - 1;                N(N-1)/2
+        }
+        a[j + 1] = key;               2(N-1)    
+    }
+}
+
+void file(int n, char name[])
+{
+    int a[100000];                    1
+    FILE *file = fopen(name, "r");    1
+    for (int i = 0; i < n; i++)       1+(N+1)+N = 2N+2
+    {
+        fscanf(file, "%d", &a[i]);    N
+    }
+    insertionSort(a, n);	      1	
+    fclose(file);                     1
+}
+
+int main()
+{
+    int number;                        1
+    char name[10];                     1
+    scanf("%[^\n]%*c",name);           1
+    scanf("%d", &number);              1
+    file(number,name);                 1
+
+}
+ 
+Time Complexity for Sort 2 comes to be: f(n) = 7/2 N^2 + 13/2 N + 9
+For Big O:
+we find g(n) such that c*g(n)>=f(n)
+19n^2 >= f(n)
+c = 19 and g(n) = n^2
+therefore: sort 2 has time complexity as O(n^2) and omega(n^2)
+------------------------------------------------------------------------------------
+From the graphs that were plotted based on the data practically , we see that sort 2 is more time efficient that sort 1 and 
+sort 2 takes less time.
+Though worst time cases i.e., O() for both the sorting algorithm is of order 2 and comes to be n^2.
+When c*g(n) for both the sorting algorithm were plotted ,we see that it matches the results that we got practically and 
+sort 2 seemed to be slightly better in time efficiency than sort 1.
+The average time complexity of two algorithms is O(n^2) but as the size of input data increases, insertion sort performs slightly better than selection sort.
